@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Founder tables outreach: example</title>
+<style>
+  html, body { margin: 0; background: #000; color: #fff; font: 15px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  .note { max-width: 1080px; margin: 0 auto; padding: 18px clamp(16px, 4vw, 40px) 0; color: #a6a6a6; font-size: 13.5px; }
+  .note b { color: #fff; font-weight: 600; }
+  .note code { color: #fff; }
+</style>
+</head>
+<body>
+  <p class="note"><b>Example community:</b> three invented networks and three fictional events, as if each member had already connected their
+    LinkedIn. Try <code>plan an energy field founder dinner for the example industry summit</code>.</p>
+
+  <founder-tables-outreach namespace="example"></founder-tables-outreach>
+
+  <script src="founder-tables-outreach.js"></script>
+  <script src="europe-map.js"></script>
+  <script src="examples/config.js"></script>
+  <script src="examples/example-data.js"></script>
+  <script>
+    // This is the whole integration: one tag, a config, and the community's networks.
+    const tool = document.querySelector('founder-tables-outreach');
+    tool.config = { ...window.FT_EXAMPLE_CONFIG, events: window.FT_EXAMPLE_EVENTS, map: window.FT_EUROPE };
+    // On a platform these come from each member's LinkedIn connection (see docs/linkedin-data.md); here, invented examples.
+    for (const n of window.FT_EXAMPLE_NETWORKS) tool.addNetwork(n);
+  </script>
+</body>
+</html>

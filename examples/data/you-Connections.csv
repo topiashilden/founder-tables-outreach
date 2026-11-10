@@ -1,0 +1,202 @@
+Notes:
+"When exporting your connection data, you may notice that some of the email addresses are missing. This is invented demo data."
+
+First Name,Last Name,URL,Email Address,Company,Position,Connected On
+Maja,Svensson,https://www.linkedin.com/in/demo-0002,,Ivoium Fusion,CEO,11 Sep 2017
+Rasmus,Vik,https://www.linkedin.com/in/demo-0008,,Ulmora Fusion,CEO,12 Apr 2025
+Rasmus,Rinaldi,https://www.linkedin.com/in/demo-0009,,Nexara Automation,Co-founder & CPO,26 Nov 2017
+Anders,Berg,https://www.linkedin.com/in/demo-0010,,Nexara Automation,CEO,13 Jun 2016
+Anders,Lehtonen,https://www.linkedin.com/in/demo-0012,,Solanta Fusion,Co-founder & COO,24 Dec 2023
+Freja,Strand,https://www.linkedin.com/in/demo-0013,,Zorino Automation,Co-founder & CEO,04 Aug 2018
+Elin,Vik,https://www.linkedin.com/in/demo-0014,,Zorino Automation,Co-founder,15 Mar 2022
+Selma,Strand,https://www.linkedin.com/in/demo-0015,,Korista Materials,Co-founder & CTO,27 Mar 2018
+Amira,Dahl,https://www.linkedin.com/in/demo-0016,,Korista Materials,CEO,09 Aug 2021
+Moa,Larsen,https://www.linkedin.com/in/demo-0017,,Lumex Grid,Co-founder & CPO,17 Feb 2022
+Isak,Lindgren,https://www.linkedin.com/in/demo-0018,,Lumex Grid,Co-founder & COO,25 Apr 2020
+Marit,Berg,https://www.linkedin.com/in/demo-0019,,Ariaro Fusion,Co-founder & CEO,08 Apr 2020
+Liv,Dahl,https://www.linkedin.com/in/demo-0020,,Ariaro Fusion,Co-founder & CEO,24 Jul 2024
+Maja,Persson,https://www.linkedin.com/in/demo-0022,,Ulmium Batteries,Co-founder & COO,15 Sep 2025
+Amira,Lindqvist,https://www.linkedin.com/in/demo-0023,,Miryx Steel,Co-founder,18 Mar 2019
+Leif,Ojala,https://www.linkedin.com/in/demo-0024,,Miryx Steel,Co-founder & CPO,11 May 2024
+Aino,Sundin,https://www.linkedin.com/in/demo-0026,,Helify Batteries,Founder,24 May 2024
+Mikael,Sundin,https://www.linkedin.com/in/demo-0027,,Alvova Hydrogen,CEO,25 Mar 2019
+Petra,Hed,https://www.linkedin.com/in/demo-0029,,Raveon Recycling,Co-founder & COO,12 Feb 2021
+Nora,Vik,https://www.linkedin.com/in/demo-0031,,Mavino Recycling,Founder,19 Feb 2016
+Bjørn,Persson,https://www.linkedin.com/in/demo-0034,,Odaova Recycling,Co-founder & COO,20 Aug 2015
+Emma,Holm,https://www.linkedin.com/in/demo-0036,,Ivoaro Solar,CEO,11 Mar 2018
+Viktor,Norén,https://www.linkedin.com/in/demo-0038,,Fyraro Automation,Co-founder & COO,08 Dec 2017
+Sanna,Forsberg,https://www.linkedin.com/in/demo-0039,,Lysify Automation,Founder & CEO,20 Apr 2023
+Isak,Salo,https://www.linkedin.com/in/demo-0040,,Lysify Automation,Co-founder & COO,27 Dec 2022
+Rolf,Gustafsson,https://www.linkedin.com/in/demo-0041,,Tolaro Wind,Co-founder & CPO,24 Jun 2016
+Nils,Lehtonen,https://www.linkedin.com/in/demo-0046,,Alvify Grid,CEO,04 Feb 2022
+Moa,Haddad,https://www.linkedin.com/in/demo-0048,,Skyeon Energy,Co-founder & CTO,17 Dec 2018
+Sara,Wallin,https://www.linkedin.com/in/demo-0052,,Ivoila Fusion,CEO,01 Apr 2019
+Helmi,Haddad,https://www.linkedin.com/in/demo-0053,,Skyyx Manufacturing,Founder,24 Mar 2014
+Clara,Lund,https://www.linkedin.com/in/demo-0054,,Skyyx Manufacturing,Founder & CEO,15 Jun 2025
+Sofia,Lund,https://www.linkedin.com/in/demo-0055,,Lysex Grid,Founder,16 Jan 2019
+Otto,Wallin,https://www.linkedin.com/in/demo-0057,,Paxeon Automation,Founder & CEO,04 May 2019
+Erik,Strand,https://www.linkedin.com/in/demo-0058,,Paxeon Automation,Founder,16 Jan 2024
+Anders,Moreau,https://www.linkedin.com/in/demo-0059,,Kvaeon Batteries,Co-founder & CPO,15 Oct 2025
+Daniel,Larsen,https://www.linkedin.com/in/demo-0061,,Zenaro Fusion,Founder,08 Feb 2024
+Jonas,Virtanen,https://www.linkedin.com/in/demo-0063,,Yarova Hydrogen,CEO,21 Jul 2018
+Mikael,Larsen,https://www.linkedin.com/in/demo-0064,,Yarova Hydrogen,Co-founder & CPO,16 Nov 2021
+Anders,Svensson,https://www.linkedin.com/in/demo-0065,,Ivoanta Fusion,Co-founder & CPO,23 Aug 2015
+Helmi,Lund,https://www.linkedin.com/in/demo-0066,,Ivoanta Fusion,Co-founder & COO,03 Mar 2023
+Lucas,Berg,https://www.linkedin.com/in/demo-0067,,Lysila Robotics,CEO,01 Dec 2017
+Emma,Nyberg,https://www.linkedin.com/in/demo-0070,,Wexly Materials,Founder,06 Jul 2023
+Ingrid,Lindgren,https://www.linkedin.com/in/demo-0071,,Paxista Automation,Co-founder,22 Jul 2014
+Felix,Sjöberg,https://www.linkedin.com/in/demo-0073,,Ravyx Grid,Co-founder & CPO,12 May 2022
+Leila,Sundin,https://www.linkedin.com/in/demo-0075,,Zorly Recycling,Co-founder,07 Jun 2021
+Liv,Johansson,https://www.linkedin.com/in/demo-0078,,Zenaro Recycling,CEO,07 Feb 2025
+Petra,Dahl,https://www.linkedin.com/in/demo-0079,,Mavara Solar,Co-founder & CTO,26 Jan 2016
+Ida,Falk,https://www.linkedin.com/in/demo-0080,,Velova Mining,Co-founder,21 Jul 2022
+Selma,Johansson,https://www.linkedin.com/in/demo-0081,,Lumium Automation,Co-founder & CPO,01 Jul 2023
+Aino,Weiss,https://www.linkedin.com/in/demo-0084,,Paxova Energy,Co-founder & CEO,23 Feb 2020
+Saga,Niemi,https://www.linkedin.com/in/demo-0085,,Helanta Robotics,Co-founder & CPO,09 Aug 2022
+Ebba,Vik,https://www.linkedin.com/in/demo-0088,,Lysaro Robotics,Co-founder & CPO,25 Sep 2018
+Moa,Sundin,https://www.linkedin.com/in/demo-0089,,Yarora Materials,Co-founder & CEO,07 Jun 2020
+Aino,Haddad,https://www.linkedin.com/in/demo-0090,,Zenent Wind,Co-founder,15 Mar 2016
+Leila,Karlsson,https://www.linkedin.com/in/demo-0092,,Skyino Fusion,Co-founder,23 Dec 2017
+Aino,Norén,https://www.linkedin.com/in/demo-0093,,Tolista Hydrogen,Co-founder & COO,23 Jan 2019
+Daniel,Virtanen,https://www.linkedin.com/in/demo-0094,,Skyista Robotics,CEO,21 Feb 2015
+Ingrid,Olsen,https://www.linkedin.com/in/demo-0098,,Zenora Hydrogen,Founder & CEO,22 Oct 2022
+Selma,Ojala,https://www.linkedin.com/in/demo-0099,,Skyaro Batteries,Co-founder & COO,03 May 2015
+Hanna,Lehtonen,https://www.linkedin.com/in/demo-0101,,Lysila Materials,Co-founder & CTO,06 Sep 2017
+Astrid,Lindgren,https://www.linkedin.com/in/demo-0105,,Graora Grid,CEO,22 Jan 2022
+Tomas,Laine,https://www.linkedin.com/in/demo-0106,,Odaaro Solar,Founder,18 Jul 2016
+Leila,Berg,https://www.linkedin.com/in/demo-0108,,Briova Manufacturing,CEO,25 Jun 2020
+Torbjörn,Hakala,https://www.linkedin.com/in/demo-0109,,Briista Fusion,Founder & CEO,17 Sep 2017
+Daniel,Heikkinen,https://www.linkedin.com/in/demo-0110,,Ekoium Wind,Founder & CEO,24 Dec 2024
+Henrik,Lund,https://www.linkedin.com/in/demo-0111,,Lumeon Robotics,Founder & CEO,03 Jan 2015
+Hanna,Engel,https://www.linkedin.com/in/demo-0112,,Lysyx Mining,Founder,28 Feb 2021
+Wilma,Forsberg,https://www.linkedin.com/in/demo-0113,,Koryx Materials,CEO,06 May 2017
+Anders,Lindqvist,https://www.linkedin.com/in/demo-0114,,Lysium Manufacturing,CEO,11 Sep 2022
+Leif,Johansson,https://www.linkedin.com/in/demo-0117,,Yarista Robotics,Founder,07 Apr 2024
+Ebba,Bergström,https://www.linkedin.com/in/demo-0118,,Quiex Steel,Co-founder & COO,18 Oct 2020
+Anton,Laine,https://www.linkedin.com/in/demo-0120,,Briify Automation,Co-founder & CTO,04 Apr 2020
+Rolf,Dahl,https://www.linkedin.com/in/demo-0122,,Solaro Manufacturing,Co-founder,16 Jul 2023
+Hugo,Berg,https://www.linkedin.com/in/demo-0123,,Alvova Manufacturing,Founder,24 Feb 2025
+Tomas,Berg,https://www.linkedin.com/in/demo-0125,,Briyx Energy,Co-founder & CEO,17 Oct 2019
+Aino,Sjöberg,https://www.linkedin.com/in/demo-0126,,Kvaent Grid,Founder & CEO,23 Jan 2016
+Sofia,Engel,https://www.linkedin.com/in/demo-0128,,Skyino Robotics,Co-founder & CPO,26 May 2016
+Mattias,Karlsson,https://www.linkedin.com/in/demo-0131,,Quient Solar,Co-founder,17 Jul 2020
+Karin,Engel,https://www.linkedin.com/in/demo-0135,,Ravaro Solar,Co-founder & CTO,14 Jul 2021
+Felix,Norén,https://www.linkedin.com/in/demo-0136,,Ivoora Solar,Co-founder & CEO,07 Jan 2025
+Rolf,Holm,https://www.linkedin.com/in/demo-0138,,Tolium Materials,Co-founder & CPO,24 Sep 2024
+Kasper,Aalto,https://www.linkedin.com/in/demo-0140,,Korify Recycling,Co-founder & CEO,12 Apr 2024
+Oskar,Brandt,https://www.linkedin.com/in/demo-0141,,Ariify Robotics,Founder,03 Aug 2019
+Sofia,Sundin,https://www.linkedin.com/in/demo-0146,,Ankar Software,Brand Manager,22 Apr 2021
+Wilma,Falk,https://www.linkedin.com/in/demo-0147,,Sälta Apparel,Software Engineer,11 Sep 2022
+Sanna,Pettersen,https://www.linkedin.com/in/demo-0148,,Nordisk Hotell,Software Engineer,03 Oct 2017
+Sara,Falk,https://www.linkedin.com/in/demo-0154,,Piano Studio,Partner,03 Oct 2022
+Oskar,Sjöberg,https://www.linkedin.com/in/demo-0157,,Kiruna Consulting,Head of Growth,20 Dec 2020
+Otto,Gustafsson,https://www.linkedin.com/in/demo-0161,,Kvarn Analytics,Finance Manager,18 Oct 2023
+Tomas,Nilsson,https://www.linkedin.com/in/demo-0162,,Bruksfest,Angel Investor,08 May 2019
+Leila,Virtanen,https://www.linkedin.com/in/demo-0163,,Hav Games,Data Analyst,25 Mar 2019
+Nils,Olsen,https://www.linkedin.com/in/demo-0164,,Tallbacken School,Engineering Manager,12 Mar 2016
+Ebba,Olsen,https://www.linkedin.com/in/demo-0165,,Hav Games,Recruiter,09 Aug 2014
+Clara,Johansson,https://www.linkedin.com/in/demo-0168,,Fjäril Capital,Recruiter,20 Aug 2022
+Anders,Forsberg,https://www.linkedin.com/in/demo-0171,,Nordisk Hotell,Software Engineer,25 Aug 2023
+Maja,Sandberg,https://www.linkedin.com/in/demo-0179,,Hjorten Publishing,Content Lead,04 Jul 2014
+Lucas,Weiss,https://www.linkedin.com/in/demo-0180,,Tindra Travel,Consultant,20 Sep 2016
+Selma,Bergström,https://www.linkedin.com/in/demo-0182,,Gnista Payments,Head of Growth,08 Aug 2024
+Wilma,Wallin,https://www.linkedin.com/in/demo-0187,,Oden Security,Marketing Manager,03 Apr 2014
+Torbjörn,Mäkelä,https://www.linkedin.com/in/demo-0190,,Bara Foods,Product Designer,20 Aug 2025
+Moa,Andersson,https://www.linkedin.com/in/demo-0191,,Nordlys Media,Recruiter,06 Jul 2025
+Hugo,Björk,https://www.linkedin.com/in/demo-0193,,Kontorsvaror AB,Partner,24 Oct 2017
+Otto,Nilsson,https://www.linkedin.com/in/demo-0196,,Svalan Telecom,Operations Coordinator,17 Nov 2017
+Jonas,Roos,https://www.linkedin.com/in/demo-0197,,Oden Security,Investment Manager,10 Aug 2014
+Bjørn,Salo,https://www.linkedin.com/in/demo-0198,,Gnista Payments,Recruiter,09 Jun 2014
+Rolf,Norén,https://www.linkedin.com/in/demo-0199,,Ljus Education,Consultant,16 Oct 2016
+Signe,Persson,https://www.linkedin.com/in/demo-0200,,Kiruna Consulting,Project Manager,20 Sep 2018
+Nora,Hakala,https://www.linkedin.com/in/demo-0201,,Ekby Bank,Consultant,01 Nov 2021
+Wilma,Holt,https://www.linkedin.com/in/demo-0204,,Ljus Education,Data Analyst,15 Jul 2015
+Gustav,Vik,https://www.linkedin.com/in/demo-0206,,Polar Insurance,Investment Manager,19 Jun 2015
+Daniel,Wallin,https://www.linkedin.com/in/demo-0207,,Halla Design,Sales Director,01 Nov 2023
+Hanna,Andersson,https://www.linkedin.com/in/demo-0209,,Vagn Freight,Brand Manager,15 Apr 2020
+Hanna,Roos,https://www.linkedin.com/in/demo-0212,,Solvik Travel,Engineering Manager,26 Apr 2020
+Tomas,Rinaldi,https://www.linkedin.com/in/demo-0213,,Nordisk Hotell,HR Business Partner,28 May 2025
+Anders,Eriksen,https://www.linkedin.com/in/demo-0215,,Solvik Travel,Product Designer,19 Jul 2016
+Gustav,Lindgren,https://www.linkedin.com/in/demo-0216,,Solvik Travel,Head of Growth,08 Dec 2023
+Otto,Virtanen,https://www.linkedin.com/in/demo-0224,,Bruksfest,HR Business Partner,23 Jan 2025
+Sara,Krüger,https://www.linkedin.com/in/demo-0226,,Stråla Retail,Consultant,03 Jan 2021
+Albin,Larsen,https://www.linkedin.com/in/demo-0227,,Ljus Education,Head of Growth,24 Jan 2019
+Bjørn,Norén,https://www.linkedin.com/in/demo-0228,,Ryd Advisors,Project Manager,16 Jan 2025
+Aino,Larsen,https://www.linkedin.com/in/demo-0229,,Fjord Studio,Account Executive,10 Jan 2025
+Ella,Nyberg,https://www.linkedin.com/in/demo-0231,,Mjölk Digital,Brand Manager,04 Nov 2019
+Kasper,Jensen,https://www.linkedin.com/in/demo-0235,,Oden Security,Brand Manager,23 Jan 2024
+Johan,Moreau,https://www.linkedin.com/in/demo-0236,,Bara Foods,Intern,03 Aug 2022
+Saga,Söder,https://www.linkedin.com/in/demo-0237,,Piano Studio,Brand Manager,10 May 2024
+Sofia,Berg,https://www.linkedin.com/in/demo-0238,,Kiruna Consulting,Student,11 Nov 2018
+Saga,Persson,https://www.linkedin.com/in/demo-0242,,Rimfrost Consulting,Head of Growth,26 May 2015
+Elin,Karimi,https://www.linkedin.com/in/demo-0243,,Piano Studio,Account Executive,10 Jan 2016
+Bjørn,Hakala,https://www.linkedin.com/in/demo-0244,,Hav Games,Customer Success Manager,07 Nov 2016
+Daniel,Hakala,https://www.linkedin.com/in/demo-0246,,Alm Ventures,Content Lead,24 Jan 2017
+Ingrid,Lund,https://www.linkedin.com/in/demo-0247,,Alm Ventures,Marketing Manager,12 Feb 2023
+Felix,Heikkinen,https://www.linkedin.com/in/demo-0249,,Lumo Home,Operations Coordinator,20 Feb 2018
+Eero,Norén,https://www.linkedin.com/in/demo-0252,,Stråla Retail,Consultant,22 Nov 2020
+Liv,Wallin,https://www.linkedin.com/in/demo-0253,,Vind Recruitment,Marketing Manager,07 Feb 2024
+Marit,Forsberg,https://www.linkedin.com/in/demo-0254,,Kvarn Analytics,Data Analyst,26 Apr 2016
+Sanna,Mäkelä,https://www.linkedin.com/in/demo-0255,,Tindra Travel,HR Business Partner,09 May 2020
+Sofia,Heikkinen,https://www.linkedin.com/in/demo-0256,,Rimfrost Consulting,Content Lead,19 May 2021
+Albin,Mäkelä,https://www.linkedin.com/in/demo-0257,,Kajen Restaurants,Partner,13 Nov 2015
+Karin,Hansen,https://www.linkedin.com/in/demo-0258,,Ljus Education,Sales Director,24 Jan 2022
+Anders,Wallin,https://www.linkedin.com/in/demo-0261,,Torg Marketplace,Head of Growth,13 May 2023
+Sanna,Vik,https://www.linkedin.com/in/demo-0263,,Nordisk Hotell,Project Manager,11 Apr 2019
+Jonas,Rinaldi,https://www.linkedin.com/in/demo-0264,,Piano Studio,HR Business Partner,10 Aug 2018
+Jari,Nilsson,https://www.linkedin.com/in/demo-0265,,Bergsro Capital,Brand Manager,07 Apr 2015
+Helmi,Pettersen,https://www.linkedin.com/in/demo-0267,,Kvarn Analytics,Finance Manager,23 Sep 2023
+Clara,Söder,https://www.linkedin.com/in/demo-0273,,Ryd Advisors,Finance Manager,06 Aug 2023
+Ingrid,Brandt,https://www.linkedin.com/in/demo-0275,,Sälta Apparel,Account Executive,09 Jul 2018
+Saga,Sandberg,https://www.linkedin.com/in/demo-0276,,Ekby Bank,Engineering Manager,24 May 2018
+Marit,Virtanen,https://www.linkedin.com/in/demo-0277,,Molnbas Cloud,Intern,22 Jan 2020
+Eero,Holt,https://www.linkedin.com/in/demo-0278,,Kvarn Analytics,Brand Manager,15 Oct 2017
+Mikael,Strand,https://www.linkedin.com/in/demo-0280,,Nordlys Media,HR Business Partner,22 Jun 2024
+Sanna,Roos,https://www.linkedin.com/in/demo-0282,,Nordlys Media,Operations Coordinator,07 Oct 2014
+Torbjörn,Sandberg,https://www.linkedin.com/in/demo-0283,,Vind Recruitment,Account Executive,20 Jan 2021
+Henrik,Björk,https://www.linkedin.com/in/demo-0284,,Kiruna Consulting,Angel Investor,13 Jun 2021
+Ida,Wallin,https://www.linkedin.com/in/demo-0292,,Bergsro Capital,Finance Manager,06 May 2020
+Selma,Krüger,https://www.linkedin.com/in/demo-0293,,Solvik Travel,Sales Director,14 Aug 2024
+Erik,Krüger,https://www.linkedin.com/in/demo-0297,,Oden Security,Recruiter,22 Dec 2021
+Nora,Strand,https://www.linkedin.com/in/demo-0300,,Ekby Bank,Project Manager,11 Dec 2021
+Eero,Aalto,https://www.linkedin.com/in/demo-0301,,Ankar Software,HR Business Partner,19 Aug 2018
+Amira,Ström,https://www.linkedin.com/in/demo-0302,,Bara Foods,Student,16 Mar 2015
+Wilma,Persson,https://www.linkedin.com/in/demo-0304,,Kvarn Analytics,Brand Manager,02 Apr 2018
+Lucas,Lehtonen,https://www.linkedin.com/in/demo-0305,,Lumo Home,Brand Manager,14 Apr 2023
+Erik,Lehtonen,https://www.linkedin.com/in/demo-0306,,Fjord Studio,Customer Success Manager,04 Dec 2024
+Mikael,Sjöberg,https://www.linkedin.com/in/demo-0308,,Kiruna Consulting,Consultant,10 Apr 2019
+Sanna,Persson,https://www.linkedin.com/in/demo-0309,,Brisa Retail,Product Designer,15 Jul 2015
+Johan,Brandt,https://www.linkedin.com/in/demo-0310,,Stråla Retail,Customer Success Manager,27 Nov 2016
+Eero,Forsberg,https://www.linkedin.com/in/demo-0311,,Rimfrost Consulting,Content Lead,16 Mar 2021
+Bjørn,Nilsson,https://www.linkedin.com/in/demo-0313,,Hjorten Publishing,Project Manager,10 Apr 2015
+Sara,Laine,https://www.linkedin.com/in/demo-0314,,Torg Marketplace,Partner,19 Jul 2024
+Nora,Gustafsson,https://www.linkedin.com/in/demo-0315,,Solvik Travel,Investment Manager,26 Feb 2022
+Lucas,Rinaldi,https://www.linkedin.com/in/demo-0317,,Lumo Home,Operations Coordinator,17 Oct 2016
+Leif,Roos,https://www.linkedin.com/in/demo-0322,,Vagn Freight,Data Analyst,03 Jan 2015
+Nora,Sundin,https://www.linkedin.com/in/demo-0324,,Svalan Telecom,Head of Growth,13 Jun 2016
+Anders,Pettersen,https://www.linkedin.com/in/demo-0325,,Kontorsvaror AB,Customer Success Manager,18 Nov 2018
+Nils,Sjöberg,https://www.linkedin.com/in/demo-0330,,Brisa Retail,Operations Coordinator,09 Jul 2018
+Elin,Engel,https://www.linkedin.com/in/demo-0331,,Ljus Education,Account Executive,01 Jan 2015
+Nora,Weiss,https://www.linkedin.com/in/demo-0332,,Ankar Software,Brand Manager,27 Mar 2018
+Veera,Berg,https://www.linkedin.com/in/demo-0333,,Ankar Software,Engineering Manager,08 Nov 2018
+Liv,Hed,https://www.linkedin.com/in/demo-0334,,Molnbas Cloud,Project Manager,19 Sep 2021
+Jari,Salo,https://www.linkedin.com/in/demo-0336,,Oden Security,Content Lead,04 Dec 2016
+Emma,Pettersen,https://www.linkedin.com/in/demo-0337,,Piano Studio,Investment Manager,28 Aug 2023
+Otto,Dahl,https://www.linkedin.com/in/demo-0339,,Kvarn Analytics,Project Manager,20 Sep 2023
+Oskar,Forsberg,https://www.linkedin.com/in/demo-0341,,Halla Design,Project Manager,21 Jan 2022
+Ida,Brandt,https://www.linkedin.com/in/demo-0347,,Ryd Advisors,Data Analyst,02 Oct 2024
+Lina,Nilsson,https://www.linkedin.com/in/demo-0348,,Bergsro Capital,HR Business Partner,18 Aug 2014
+Erik,Haddad,https://www.linkedin.com/in/demo-0351,,Kvarn Analytics,Account Executive,14 Oct 2014
+Eero,Falk,https://www.linkedin.com/in/demo-0354,,Mjölk Digital,Recruiter,11 Apr 2016
+Freja,Niemi,https://www.linkedin.com/in/demo-0355,,Kvarn Analytics,Project Manager,26 Dec 2020
+Emma,Lund,https://www.linkedin.com/in/demo-0356,,Kvarn Analytics,Finance Manager,02 Aug 2019
+Moa,Aalto,https://www.linkedin.com/in/demo-0360,,Bergsro Capital,Recruiter,15 Feb 2018
+Felix,Falk,https://www.linkedin.com/in/demo-0364,,Ryd Advisors,Finance Manager,10 Mar 2016
+Hugo,Lehtonen,https://www.linkedin.com/in/demo-0368,,Ljus Education,Angel Investor,13 Jun 2023
+Oskar,Aalto,https://www.linkedin.com/in/demo-0369,,Piano Studio,Intern,19 Jul 2021
+Albin,Berglund,https://www.linkedin.com/in/demo-0372,,Solvik Travel,Brand Manager,25 Jan 2021
+Ida,Pettersen,https://www.linkedin.com/in/demo-0373,,Brisa Retail,Customer Success Manager,27 Jan 2014
+Lina,Jensen,https://www.linkedin.com/in/demo-0376,,Polar Insurance,Sales Director,05 Jun 2020
+Pekka,Johansson,https://www.linkedin.com/in/demo-0377,,Bara Foods,Product Designer,24 Mar 2022
+Felix,Mäkelä,https://www.linkedin.com/in/demo-0378,,Alm Ventures,Brand Manager,20 Aug 2025
+Rasmus,Svensson,https://www.linkedin.com/in/demo-0380,,Torg Marketplace,Sales Director,06 Jun 2017

@@ -1,0 +1,7 @@
+Notes:
+"When exporting your connection data, you may notice that some of the email addresses are missing."
+
+First Name,Last Name,URL,Email Address,Company,Position,Connected On
+Test,Person,https://www.linkedin.com/in/test-person,test@example.com,Acme Steel,Head of Procurement,01 Jan 2025
+Quote,"Name, Jr",https://www.linkedin.com/in/q,,"Big ""Cement"" Co",Plant Manager,02 Jan 2025
+Stu,Dent,,,Uni,Student,03 Jan 2025

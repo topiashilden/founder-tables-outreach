@@ -1,0 +1,15 @@
+{
+  "name": "founder-tables-outreach",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Drop-in widget: your community's LinkedIn networks in one search, matched to event attendee lists.",
+  "scripts": {
+    "test": "node test.mjs && node --test tests/*.test.mjs",
+    "linkedin:sync": "node --env-file-if-exists=.env.local scripts/linkedin-sync.mjs",
+    "extract:list": "node --env-file-if-exists=.env.local scripts/extract-public-list.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.3.0",
+    "zod": "^4.0.0"
+  }
+}
