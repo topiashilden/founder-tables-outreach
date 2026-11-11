@@ -1,7 +1,7 @@
 # Founder tables outreach
 
 **Your community's LinkedIn networks, in one search.** A drop-in tool for a community platform: the team, portfolio
-founders and Venture Partners each attach their own LinkedIn connections, the networks merge into one, and you search
+founders and venture partners each attach their own LinkedIn connections, the networks merge into one, and you search
 it for what you need ("plan an energy field founder dinner for the example industry summit"). It shows who fits,
 who in the community knows them, who is attending an event, and lets you invite them from there.
 
