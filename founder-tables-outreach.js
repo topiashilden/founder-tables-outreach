@@ -159,6 +159,31 @@
   const STOP = new Set(('a an the me my us make plan create organise organize arrange host set up some small for with in on at of and or to about around ' +
     'people folks founders founder leaders experts guests professionals who that dinner lunch breakfast roundtable workshop meetup evening event ' +
     'sustainable sustainability green climate impact next week month please field sector space').split(' '));
+  // --- the other kind of prompt: "find a CTO with battery experience for a portfolio company" ---
+  // A search for people (a hire, an investor, an advisor, an intro), not guests. No event word means this kind.
+  const FIND_ASK = /\b(find|hire|hiring|recruit\w*|looking for|search(?:ing)? for|who knows|intro(?:duce|duction)? to|talent|candidates?)\b/i;
+  // ask: how a prompt says the role; title: words in a job title that mean it; org: company words that also count (a fund)
+  const ROLES = [
+    { label: 'CTO', ask: /\bcto\b|chief technology|technical co-?founder|head of engineering|vp (?:of )?engineering/i, title: ['cto', 'chief technology', 'technical co-founder', 'head of engineering', 'vp engineering', 'vp of engineering'] },
+    { label: 'CEO', ask: /\bceo\b|chief executive|managing director/i, title: ['ceo', 'chief executive', 'managing director'] },
+    { label: 'CFO', ask: /\bcfo\b|chief financial|head of finance|finance director/i, title: ['cfo', 'chief financial', 'head of finance', 'finance director'] },
+    { label: 'COO', ask: /\bcoo\b|chief operating|head of operations/i, title: ['coo', 'chief operating', 'head of operations', 'operations director'] },
+    { label: 'head of sales', ask: /\bsales\b|business development|chief revenue|\bcro\b/i, title: ['sales', 'business development', 'chief revenue', 'commercial'] },
+    { label: 'marketing lead', ask: /\bcmo\b|marketing|head of growth/i, title: ['cmo', 'marketing', 'growth', 'brand'] },
+    { label: 'product lead', ask: /\bcpo\b|product (?:manager|lead|owner)|head of product/i, title: ['cpo', 'product manager', 'product lead', 'head of product', 'product owner'] },
+    { label: 'engineer', ask: /\bengineers?\b|\bdevelopers?\b/i, title: ['engineer', 'developer'] },
+    { label: 'designer', ask: /\bdesigners?\b/i, title: ['designer', 'design lead'] },
+    { label: 'scientist', ask: /\bscientists?\b|\bresearchers?\b|\bphd\b/i, title: ['scientist', 'researcher', 'research', 'r&d', 'professor'] },
+    { label: 'investor', ask: /\binvestors?\b|\bvcs?\b|\bangels?\b/i, title: ['partner', 'investor', 'investment', 'principal', 'angel'], org: ['capital', 'ventures', 'fund', 'invest'], field: 'in' },
+    { label: 'founder', ask: /\b(?:co-?)?founders?\b/i, title: ['founder', 'co-founder'], field: 'in' },
+    { label: 'advisor', ask: /\badvis[oe]rs?\b|\bboard members?\b|\bmentors?\b/i, title: ['advisor', 'adviser', 'board', 'chair'] },
+  ];
+  // Words that say what kind of search it is, not which field.
+  const FIND_FILLER = new Set(('find hire hiring recruit recruiting looking search searching who knows know intro introduce introduction talent candidate candidates ' +
+    'someone somebody person experience experienced background from our portfolio company companies startup startups scaleup role job good great strong senior ' +
+    'head lead need needs want hands attending attend going event').split(' '));
+  const GENERIC = new Set(['sustainable', 'sustainability', 'green', 'climate', 'impact']);
+  const article = (w) => (/^[A-Z]{2,}/.test(w) ? 'a' : /^[aeiou]/i.test(w) ? 'an' : 'a');
   const titleCase = (s) => s.replace(/(^|[\s-])(\p{L})/gu, (_, a, b) => a + b.toUpperCase());
   const words = (s) => (s.toLowerCase().match(/\p{L}[\p{L}]*/gu) || []);
   const sameStem = (a, b) => (a.length < 4 || b.length < 4 ? a === b : a.slice(0, 6) === b.slice(0, 6));
@@ -170,14 +195,14 @@
    */
   function interpretPrompt(prompt, topics = [], events = []) {
     const text = String(prompt || '').trim();
-    const out = { eventWord: 'dinner', place: '', date: '', theme: '', topicKey: '', custom: null, field: null, understood: [] };
+    const out = { mode: 'event', eventWord: 'dinner', place: '', date: '', theme: '', topicKey: '', custom: null, field: null, understood: [] };
     if (!text) return out;
     const lower = text.toLowerCase();
     out.eventWord = EVENT_WORDS.find((w) => new RegExp('\\b' + w + 's?\\b').test(lower)) || 'dinner';
     if (new RegExp('\\bfounder\\s+' + out.eventWord + '\\b').test(lower)) out.eventWord = 'founder ' + out.eventWord;
 
     const place = text.match(/\bin\s+([\p{L}][\p{L}\-]*(?:\s+[\p{L}][\p{L}\-]*)?)(?=\s+(?:for|with|on|about|around|of|to|that|who|people|founders|next)\b|[,.;]|$)/iu);
-    if (place) out.place = titleCase(place[1].trim());
+    if (place && (geocode(place[1]) || /^\p{Lu}/u.test(place[1].trim()))) out.place = titleCase(place[1].trim());
     const date = text.match(/\bon\s+((?:next\s+)?(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)(?:\s+\d{1,2}(?:st|nd|rd|th)?(?:\s+of)?\s+[a-z]{3,9})?|\d{1,2}(?:st|nd|rd|th)?(?:\s+of)?\s+[a-z]{3,9})/i);
     if (date) out.date = date[1].replace(/^\w/, (c) => c.toUpperCase());
 
@@ -185,6 +210,34 @@
     const f = fold(text);
     const ev = events.find((e) => f.includes(fold(e.name))) || events.find((e) => f.includes(fold(e.city)) && words(e.name).some((w) => w.length >= 5 && !STOP.has(w) && f.includes(w)));
     if (ev) { out.eventId = ev.id; out.place = ev.city; }
+    const evWords = new Set(ev ? words(ev.name + ' ' + ev.city) : []);
+
+    // A search for people, not guests: a role and/or a field, and who it is for
+    const roles = ROLES.filter((r) => r.ask.test(text));
+    const hasEventWord = EVENT_WORDS.some((w) => new RegExp('\\b' + w + 's?\\b').test(lower));
+    if (!hasEventWord && (FIND_ASK.test(text) || roles.length)) {
+      out.mode = 'find'; out.eventWord = '';
+      const roleWords = new Set(roles.flatMap((r) => words(text.match(r.ask)[0])));
+      const forM = text.match(/\bfor\s+(?:a|an|our|my)\s+([\p{L}\s-]*?(?:startup|company|scaleup|team))\b/iu);
+      if (ev && !(place && fold(place[1]) === fold(ev.city))) out.place = '';   // the event's city is where it is, not where the person must be
+      const drop = new Set(words([out.place, out.date, forM ? forM[1] : ''].join(' ')));
+      const keep = (w) => !roleWords.has(w) && !drop.has(w) && !evWords.has(w) && !FIND_FILLER.has(w) && w.length > 1;
+      let tokens = words(lower).filter((w) => keep(w) && !STOP.has(w));
+      if (!tokens.length) tokens = words(lower).filter((w) => keep(w) && GENERIC.has(w));   // "climate" is generic, but it is the only field named
+      const field = tokens.join(' ');
+      const terms = new Set(tokens.map((w) => (w.length > 6 ? w.slice(0, 6) : w)));
+      for (const t of topics) if (tokens.some((w) => (t.keywords || []).some((x) => words(String(x)).some((v) => sameStem(w, v))))) for (const k of t.keywords || []) terms.add(k.toLowerCase());
+      const forWhom = /\bportfolio\b/i.test(text) ? 'one of our portfolio companies' : forM ? `${article(forM[1].trim())} ${forM[1].trim().toLowerCase()}` : '';
+      const role = roles[0] || null;
+      out.theme = field;
+      out.find = {
+        role: role ? role.label : '', fieldIn: role && role.field === 'in', field, forWhom,
+        title: [...new Set(roles.flatMap((r) => r.title))], org: [...new Set(roles.flatMap((r) => r.org || []))], fieldTerms: [...terms], boost: [...new Set(tokens.map((w) => (w.length > 6 ? w.slice(0, 6) : w)))],
+        label: [role ? role.label.replace(/^\w/, (c) => c.toUpperCase()) : 'People', field].filter(Boolean).join(' · '),
+      };
+      if (role || field) { out.topicKey = 'find'; out.understood = [out.find.label]; }
+      return out;
+    }
 
     // "an energy field founder dinner": the words before it name the field the founders work in
     const pre = text.match(/\b(?:an?|the)\s+([\p{L}][\p{L}\s-]*?)\s+founder\s+(?:dinner|lunch|breakfast|roundtable|workshop|meetup|evening|event)s?\b/iu);
@@ -199,7 +252,6 @@
 
     // The theme's own words; generic ones ("sustainable") are dropped unless nothing else is left.
     // words that only name the event or its city are not a guest theme ("industry" in "Example Industry Summit")
-    const evWords = new Set(ev ? words(ev.name + ' ' + ev.city) : []);
     let tokens = words(out.theme).filter((w) => !STOP.has(w) && !evWords.has(w) && w.length > 1);
     if (!tokens.length && !ev) tokens = words(out.theme).filter((w) => !['for', 'the', 'and', 'of', 'a', 'an'].includes(w));
     let best = null, bestScore = 0;
@@ -227,6 +279,18 @@
     return out;
   }
 
+  /** The topic for a find-mode search (see interpretPrompt's `find`). */
+  function findTopic(f) {
+    const rx = (list) => (list && list.length ? new RegExp('(?<![\\p{L}])(?:' + list.map(escapeRe).join('|') + ')', 'iu') : null);
+    const title = rx(f.title), field = rx(f.fieldTerms), fund = rx(f.org);
+    // a fund counts as the field for investors: "investors in hydrogen" are partners at funds, whatever the fund is called
+    const org = field && fund ? new RegExp(field.source + '|' + fund.source, 'iu') : field || fund;
+    return {
+      key: 'find', find: f, label: f.label, topic: f.label, why: 'fits what you are looking for', founders: [], plain: false, boost: rx(f.boost),
+      rule: { title, org, req: title && org ? 'both' : title ? 'title' : 'any', titleOrg: field },   // the field may be in the title ("Battery engineer"); a fund only in the company
+    };
+  }
+
   /** The whole word around a match: "procure" in "Procurement" -> "Procurement". */
   function wordAround(s, m) {
     let a = m.index, b = m.index + m[0].length;
@@ -239,14 +303,15 @@
   function fitFor(p, topic) {
     const { title, org, req } = topic.rule;
     if (!p.position || NEVER_ROLE.test(p.position)) return null;
-    const tm = title && p.position.match(title), om = org && p.company.match(org);
+    const tm = title && p.position.match(title), om = org && (p.company.match(org) || (topic.rule.titleOrg && p.position.match(topic.rule.titleOrg)));
     const ok = { title: tm, org: om, any: tm || om, both: tm && om }[req];
     if (!ok) return null;
     const senior = SENIOR.test(p.position);
     const strong = !!((tm && om) || (tm && senior));
     const mine = p.owners.some((o) => o.me);
-    const score = (tm ? 2 : 0) + (om ? 2 : 0) + (senior ? 1 : 0) + (mine ? 0.5 : 0);
-    const on = [tm && `title “${wordAround(p.position, tm).toLowerCase()}”`, om && `company “${wordAround(p.company, om)}”`].filter(Boolean).join(', ');
+    const own = topic.boost && (topic.boost.test(p.company) || topic.boost.test(p.position));
+    const score = (tm ? 2 : 0) + (om ? 2 : 0) + (senior ? 1 : 0) + (mine ? 0.5 : 0) + (own ? 1.5 : 0);
+    const on = [tm && `title “${wordAround(p.position, tm).toLowerCase()}”`, om && `${om.input === p.company ? 'company' : 'title'} “${wordAround(om.input, om)}”`].filter(Boolean).join(', ');
     return { strong, score, on, why: topic.why };
   }
 
@@ -425,6 +490,15 @@
         ? `Hi ${owner ? owner.name : 'there'},\n\nA quick nudge on my earlier note about an intro to ${full}${at}. No worries if it's not a fit.${sig}`
         : `Hi ${person.first},\n\nA quick nudge on my invite to the ${eventWord}${when}. Would you be able to join? No worries if not.${sig}`;
     }
+    if (topic.find) {
+      const f = topic.find, role = f.role ? `${article(f.role)} ${f.role}` : 'someone';
+      const ask = `${role}${f.field ? (f.fieldIn ? ` in ${f.field}` : ` with ${f.field} experience`) : ''}${f.forWhom ? ` for ${f.forWhom}` : ''}${where}`;
+      if (kind === 'follow_up') return base === 'intro'
+        ? `Hi ${owner ? owner.name : 'there'},\n\nA quick nudge on my earlier note about an intro to ${full}${at}. No worries if it's not a fit.${sig}`
+        : `Hi ${person.first},\n\nA quick nudge on my earlier note. Would you be open to a short chat? No worries if not.${sig}`;
+      if (kind === 'intro') return `Hi ${owner ? owner.name : 'there'},\n\nCould you introduce me to ${full}${at}? I'm looking for ${ask}, and ${person.first} could be the right person, or know who is.\n\nHappy to write a short note you can forward.${sig}`;
+      return `Hi ${person.first},\n\nI'm looking for ${ask}. With your work${at}, I thought you might be the right person, or know who is.\n\nWould you be open to a short chat?${sig}`;
+    }
     if (topic.plain && kind === 'intro') return `Hi ${owner ? owner.name : 'there'},\n\nCould you introduce me to ${full}${at}? We're hosting a small ${eventWord}${where}${when}${during}, and ${person.first} would be a great guest.\n\nHappy to write a short note you can forward.${sig}`;
     if (topic.plain) return `Hi ${person.first},\n\nWe're hosting a small ${eventWord}${where}${when}${during}.\n\nWould you join us?${sig}`;
     if (kind === 'intro') {
@@ -464,7 +538,7 @@
     return s;
   }
 
-  const core = { parseAttendees, geocode, matchEvent, eventDates, longDate, interpretPrompt, fold, companyKey, profileKey, safeProfileUrl, parseConnections, mergePeople, compileTopic, customTopic, fitFor, stateOf, rank, seatTables, draft, voiceProblems, daysBetween, addDays, shortDate, serialize, deserialize, emptyState, MAX_CHARS };
+  const core = { findTopic, parseAttendees, geocode, matchEvent, eventDates, longDate, interpretPrompt, fold, companyKey, profileKey, safeProfileUrl, parseConnections, mergePeople, compileTopic, customTopic, fitFor, stateOf, rank, seatTables, draft, voiceProblems, daysBetween, addDays, shortDate, serialize, deserialize, emptyState, MAX_CHARS };
 
   // ───────────────────────── the element ─────────────────────────
 
@@ -661,7 +735,7 @@ details > summary { cursor: pointer; padding: 14px 16px; font-weight: 600; list-
    * Left: one cloud of dots per network (every connection). Right: the people who fit. Between them, strings that
    * grow out of the cloud, with a light travelling along each. A person known by two networks gets two strings.
    */
-  function netPainter(host, { canvas, nets, shown }) {
+  function netPainter(host, { canvas, nets, shown, rel = null }) {
     const W = 1000, H = 560, ctx = canvas.getContext('2d');
     const cs = getComputedStyle(host);
     const v = (n, d) => cs.getPropertyValue(n).trim() || d;
@@ -669,7 +743,7 @@ details > summary { cursor: pointer; padding: 14px 16px; font-weight: 600; list-
       glow: v('--ft-glow', v('--ft-accent', '#fff')), font: cs.fontFamily || 'sans-serif',
       nets: [1, 2, 3, 4, 5].map((i) => v('--ft-c' + i, ['#ffffff', '#9ca3af', '#d1d5db', '#6b7280', '#e5e7eb'][i - 1])) };
     const hash = (str) => { let x = 2166136261; for (let i = 0; i < str.length; i++) { x ^= str.charCodeAt(i); x = Math.imul(x, 16777619); } return ((x >>> 0) % 100000) / 100000; };
-    const N = nets.length, ox = 215, rMax = Math.min(120, (H / (N + 1)) * 0.5);
+    const N = nets.length, ox = 262, rMax = Math.min(120, (H / (N + 1)) * 0.5);
     const oy = (i) => (H * (i + 1)) / (N + 1);
     const px = 640, py = (j) => (shown.length === 1 ? H / 2 : 44 + (j * (H - 88)) / (shown.length - 1));
     const col = (i) => C.nets[i % C.nets.length];
@@ -795,7 +869,8 @@ details > summary { cursor: pointer; padding: 14px 16px; font-weight: 600; list-
         const label = cl.n.me && cl.n.name === 'Me' ? 'You' : cl.n.name;
         ctx.fillText(cut(label, 14), ox - rMax - 18, y - 11);
         ctx.fillStyle = C.muted; ctx.font = `12.5px ${C.font}`;
-        ctx.fillText(`${cl.n.rows.length} connections`, ox - rMax - 18, y + 8);
+        const rc = rel ? rel.get(cl.n) || 0 : null;   // this search's people in their network, not their whole network
+        ctx.fillText(rc == null ? `${cl.n.rows.length} connections` : `${rc} relevant ${rc === 1 ? 'connection' : 'connections'}`, ox - rMax - 18, y + 8);
         if (cl.n.role) ctx.fillText(cut(cl.n.role, 22), ox - rMax - 18, y + 25);
         ctx.globalAlpha = 1;
       }
@@ -1056,6 +1131,7 @@ details > summary { cursor: pointer; padding: 14px 16px; font-weight: 600; list-
         const st = this.s.settings;
         const custom = () => customTopic({ ...(st.custom || {}), topic: st.theme });
         if (st.topic === 'custom') return custom();
+        if (st.topic === 'find' && st.find) return findTopic(st.find);
         const base = this._cfg.topics.find((t) => t.key === st.topic) || custom();
         if (st.field && st.field.org && st.field.org.length && base.rule && base.rule.title) { // founders in a field: same title rule, company must match the field
           const terms = st.field.org.map(escapeRe).join('|');
@@ -1111,7 +1187,7 @@ details > summary { cursor: pointer; padding: 14px 16px; font-weight: 600; list-
         const ev = this.currentEvent(), known = rctx.attending ? rctx.attending.size : 0;
         const n = this.fieldCount();
         box.replaceChildren(
-          h('p', { class: 'scopehead' }, h('b', { text: `${n.toLocaleString('en-US')} ${n === 1 ? 'person' : 'people'}` }), ' on this field in your community’s network', h('span', { class: 'muted', text: ` · ${t.custom ? (st.theme || 'your keywords') : t.label}` })),
+          h('p', { class: 'scopehead' }, h('b', { text: `${n.toLocaleString('en-US')} ${n === 1 ? 'person' : 'people'}` }), st.mode === 'find' ? ' match in your community’s network' : ' on this field in your community’s network', h('span', { class: 'muted', text: ` · ${t.custom ? (st.theme || 'your keywords') : t.label}` })),
           rctx.attending ? h('div', { class: 'seg', role: 'group', 'aria-label': 'Who to include' },
             h('button', { type: 'button', class: 'segb', 'aria-pressed': String(scope === 'all'), onclick: set('all'), text: 'Everyone' }),
             h('button', { type: 'button', class: 'segb', 'aria-pressed': String(scope === 'event'), onclick: set('event'), text: `Attending ${ev.name} · ${known}` })) : '');
@@ -1159,17 +1235,20 @@ details > summary { cursor: pointer; padding: 14px 16px; font-weight: 600; list-
         let plan;
         try { plan = c.interpret ? await c.interpret(text, { topics: c.topics, events: c.events || [], interpretPrompt }) : interpretPrompt(text, c.topics, c.events || []); } catch { plan = interpretPrompt(text, c.topics, c.events || []); }
         plan = plan || {};
+        st.mode = plan.mode === 'find' ? 'find' : 'event';
+        st.find = plan.find || null;
+        if (st.mode === 'find') { st.place = plan.place || ''; st.date = plan.date || ''; st.event = plan.eventId || null; }
         if (plan.eventWord) st.eventWord = plan.eventWord;
         if (plan.place) st.place = plan.place;
         if (plan.date) st.date = plan.date;
         st.theme = plan.theme || '';
         st.field = plan.field || null;
         if (plan.topicKey) { st.topic = plan.topicKey; if (plan.custom) st.custom = { title: plan.custom.title || '', org: plan.custom.org || '' }; }
-        const ev = this.events().find((e) => e.id === plan.eventId) || this.events().find((e) => this.eventInTown(e));
+        const ev = this.events().find((e) => e.id === plan.eventId) || (st.mode === 'find' ? null : this.events().find((e) => this.eventInTown(e)));
         if (ev) { st.event = ev.id; if (!plan.date) st.date = longDate(ev.start); }
         this.plan = plan;
         this.save();
-        if (!plan.topicKey) this.toast('I could not find who you want to invite. Try: “a dinner in Oslo for sustainable industry people”.');
+        if (!plan.topicKey) this.toast('Say who you are looking for. Try: “a CTO with battery experience” or “a founder dinner in Stockholm”.');
         if (plan.topicKey && this.people().length) {
           const fl = this.fitLine(), el = ev ? this.eventLine(ev) : '';
           if (fl) this.logAdd([[`$ plan “${text.length > 48 ? text.slice(0, 47) + '…' : text}”`, 'cmd'], [fl, 'hot'], ...(el ? [[el, 'hot']] : [])]);
@@ -1179,19 +1258,22 @@ details > summary { cursor: pointer; padding: 14px 16px; font-weight: 600; list-
 
       renderPrompt() {
         const st = this.s.settings, c = this._cfg, box = this.root.getElementById('prompt');
-        const area = h('textarea', { rows: 2, 'aria-label': 'Describe the dinner you want', placeholder: c.placeholder ?? ((c.examples && c.examples[0]) || 'make me a dinner in oslo for sustainable industry people'), value: st.prompt || '' });
+        const area = h('textarea', { rows: 2, 'aria-label': 'Who are you looking for', placeholder: c.placeholder ?? ((c.examples && c.examples[0]) || 'make me a dinner in oslo for sustainable industry people'), value: st.prompt || '' });
         const go = () => { const t = area.value.trim(); if (t) this.applyPrompt(t); };
         area.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); go(); } });
         const examples = c.examples || ['make me a dinner in oslo for sustainable industry people', 'a lunch in stockholm for AI founders'];
         const plan = this.plan, t = this.topic();
         const hasTheme = st.theme || (plan && plan.topicKey);
-        const tags = hasTheme ? [
+        const tags = hasTheme && st.mode === 'find' ? [
+          ['Looking for', t.label], st.find && st.find.forWhom && ['For', st.find.forWhom], st.place && ['Where', st.place],
+          (() => { const ev = this.currentEvent(); return ev && this.eventInTown(ev) && ['Event', `${ev.name} · ${eventDates(ev)}`]; })(),
+        ].filter(Boolean) : hasTheme ? [
           ['Type', st.eventWord], st.place && ['Place', st.place], st.date && ['Date', st.date],
           ['Looking for', t.custom ? (st.theme || 'your keywords') : t.label],
           (() => { const ev = this.currentEvent(); return ev && this.eventInTown(ev) && ['Event', `${ev.name} · ${eventDates(ev)}`]; })(),
         ].filter(Boolean) : [];
         box.replaceChildren(
-          h('div', { class: 'prompt-box' }, area, h('button', { type: 'button', class: 'btn', text: 'Plan it', onclick: go })),
+          h('div', { class: 'prompt-box' }, area, h('button', { type: 'button', class: 'btn', text: c.simple ? 'Find' : 'Plan it', onclick: go })),
           tags.length ? h('div', { class: 'plan' }, tags.map(([k, v]) => h('span', { class: 'tag' }, h('span', { class: 'muted', text: k + ' ' }), h('b', { text: v })))) : '',
           examples.length ? h('div', { class: 'examples' }, 'Try', examples.map((ex) => h('button', { type: 'button', class: 'btn ghost small', text: ex, onclick: () => { area.value = ex; go(); } }))) : '');
       }
@@ -1387,7 +1469,9 @@ details > summary { cursor: pointer; padding: 14px 16px; font-weight: 600; list-
         const canvas = h('canvas', { class: 'netcv', role: 'img', 'aria-label': `${nets.length} networks, ${people.length} people, ${ranked.length} who fit, ${shared} known by more than one of you` });
         if (this._cfg.simple) {
           box.replaceChildren(h('div', { class: 'map' }, canvas), h('ul', { class: 'sr' }, shown.map((r) => h('li', { text: `${r.p.first} ${r.p.last}, ${r.p.position}${r.p.company ? ', ' + r.p.company : ''}. Known by ${r.p.owners.map((o) => o.name).join(' and ')}.` }))));
-          this._net = { canvas, nets, people, shown };
+          const rel = new Map();   // per network: how many of its people this search is about
+          for (const p of people) if (fitFor(p, topic)) for (const o of p.owners) rel.set(o, (rel.get(o) || 0) + 1);
+          this._net = { canvas, nets, people, shown, rel };
           this.kickNet();
           return;
         }
@@ -1524,7 +1608,11 @@ details > summary { cursor: pointer; padding: 14px 16px; font-weight: 600; list-
           return place({ ...e, attendees: [...(e.attendees || []), ...(add ? add.rows : [])].map(place), source: add ? add.source : e.source, invented: add ? false : e.invented });
         }).sort((a, b) => a.start.localeCompare(b.start));
       }
-      eventInTown(ev) { return !!this.s.settings.place && fold(this.s.settings.place) === fold(ev.city); }
+      eventInTown(ev) {
+        const st = this.s.settings;
+        if (st.mode === 'find') return !!ev && st.event === ev.id;   // "a CTO attending Slush": only an event the prompt named
+        return !!st.place && fold(st.place) === fold(ev.city);
+      }
       currentEvent() {
         const evs = this.events(), st = this.s.settings;
         return evs.find((e) => e.id === st.event) || evs.find((e) => this.eventInTown(e)) || evs[0] || null;

@@ -2,8 +2,14 @@
 
 **Your community's LinkedIn networks, in one search.** A drop-in tool for a community platform: the team, portfolio
 founders and venture partners each attach their own LinkedIn connections, the networks merge into one, and you search
-it for what you need ("plan an energy field founder dinner for the example industry summit"). It shows who fits,
-who in the community knows them, who is attending an event, and lets you invite them from there.
+it for who you need. Two kinds of search:
+
+- **People**: "find a CTO with battery experience for a portfolio company", "who knows investors in hydrogen". It finds
+  who fits, shows who in the community knows them, and drafts a short note or an intro request.
+- **Events**: "plan an energy field founder dinner for the example industry summit". The same, plus who is attending the event, and a
+  dinner invite instead of a note.
+
+Nothing is sent for you: the button copies the message and opens the person on LinkedIn.
 
 The widget is one file with no dependencies and no build: `founder-tables-outreach.js`. It is a web component, so it
 works in any stack. The scripts around it (LinkedIn token sync, public-page extraction) run on Node.
@@ -51,7 +57,7 @@ Nothing scrapes LinkedIn or event sites, and nothing is sent for you.
 | `simple` | `true` for the step-by-step layout: prompt, then attach networks, then "See who's coming" → event map → invite. Hides the rest |
 | `examples[]`, `placeholder` | example prompts shown under the prompt box, and the prompt box's hint |
 | `sample` | optional invented people for a "try it" button |
-| `interpret(prompt, { topics, interpretPrompt })` | optional async hook to read the prompt your own way (e.g. with Claude). Return `{ eventWord, place, date, theme, topicKey, custom }` |
+| `interpret(prompt, { topics, interpretPrompt })` | optional async hook to read the prompt your own way (e.g. with Claude). Return `{ mode, eventWord, place, date, theme, topicKey, custom, find }` (see `interpretPrompt`) |
 | `followUpDays` 7, `snoozeDays` 90, `colleagueDays` 30 | status rules |
 
 With no config the tool still works: the prompt becomes a keyword search on titles and company names.

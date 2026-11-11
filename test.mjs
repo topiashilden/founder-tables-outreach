@@ -140,6 +140,46 @@ test('custom topic matches on word starts and escapes regex characters', () => {
   assert.equal(core.fitFor(mk('A', 'Sales', 'Passport Co', me), c), null, 'word start only');
 });
 
+// ---- find mode: a search for people, not guests ----
+test('"find a CTO with battery experience for a portfolio company" is a search, not a dinner', () => {
+  const p = core.interpretPrompt('find a CTO with battery experience for a portfolio company', topics);
+  assert.equal(p.mode, 'find');
+  assert.equal(p.topicKey, 'find');
+  assert.equal(p.find.role, 'CTO');
+  assert.equal(p.find.field, 'battery');
+  assert.equal(p.find.forWhom, 'one of our portfolio companies');
+  const f = core.findTopic(p.find);
+  assert.ok(core.fitFor(mk('A', 'CTO', 'Kvaeon Batteries', me), f), 'role in the title, field in the company');
+  assert.ok(core.fitFor(mk('B', 'CTO & battery lead', 'Acme', me), f), 'the field may be in the title');
+  assert.equal(core.fitFor(mk('C', 'CTO', 'Piano Studio', me), f), null, 'a CTO outside the field');
+  assert.equal(core.fitFor(mk('D', 'Battery engineer', 'Kvaeon Batteries', me), f), null, 'the field without the role');
+});
+test('find mode: investors are matched at funds, never by a fund word in someone else\'s title', () => {
+  const f = core.findTopic(core.interpretPrompt('who knows investors in hydrogen', topics).find);
+  assert.ok(core.fitFor(mk('A', 'Partner', 'Bergsro Capital', me), f));
+  assert.equal(core.fitFor(mk('B', 'Investment Manager', 'Solvik Travel', me), f), null);
+  assert.equal(core.fitFor(mk('C', 'HR Business Partner', 'Polar Insurance', me), f), null);
+});
+test('find mode: who it is for is not the field, a lowercase non-city is not a place, an event is kept', () => {
+  const a = core.interpretPrompt('recruit a head of sales for a climate startup in Stockholm', topics);
+  assert.deepEqual([a.mode, a.find.role, a.find.field, a.find.forWhom, a.place], ['find', 'head of sales', '', 'a climate startup', 'Stockholm']);
+  assert.equal(core.interpretPrompt('who knows investors in hydrogen', topics).place, '');
+  const events = [{ id: 'is', name: 'Example Industry Summit', city: 'Stockholm', start: '2026-11-09', attendees: [] }];
+  const b = core.interpretPrompt('find a CTO attending the example industry summit', topics, events);
+  assert.deepEqual([b.mode, b.eventId, b.find.field, b.place], ['find', 'is', '', '']);
+  assert.equal(core.interpretPrompt('make me a dinner in oslo for sustainable industry people', topics).mode, 'event', 'an event word keeps event mode');
+});
+test('find mode drafts ask for a chat or an intro, and never mention an event', () => {
+  const f = core.findTopic(core.interpretPrompt('find a CTO with battery experience for a portfolio company', topics).find);
+  const person = { first: 'Lina', last: 'Rinaldi', company: 'Kvaeon Batteries' };
+  const d = core.draft({ kind: 'direct', person, topic: f, place: '', signature: '' });
+  assert.match(d, /looking for a CTO with battery experience for one of our portfolio companies/);
+  assert.doesNotMatch(d, /dinner|join us/i);
+  const i = core.draft({ kind: 'intro', person, owner: { name: 'Alex' }, topic: f, place: '', signature: '' });
+  assert.match(i, /^Hi Alex,[\s\S]*introduce me to Lina Rinaldi at Kvaeon Batteries/);
+  assert.deepEqual(core.voiceProblems(d), []);
+});
+
 test('an event named in the prompt sets city, dates and the default topic', () => {
   const events = [{ id: 'is', name: 'Example Industry Summit', city: 'Stockholm', start: '2026-12-03', end: '2026-12-04', attendees: [] }, { id: 'fd', name: 'Nordic Founder Day', city: 'Helsinki', start: '2027-01-21', attendees: [] }];
   const withDefault = [core.compileTopic({ key: 'founders', label: 'Founders', default: true, plain: true, match: { title: /founder|\bceo\b/i, req: 'title' } }), ...topics];

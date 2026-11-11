@@ -2,10 +2,10 @@
 // company-name rule, and words the prompt reader uses to pick a topic. Add your own; see README.md.
 window.FT_EXAMPLE_CONFIG = {
   id: "example",
-  title: "Plan an event with your community’s networks",
+  title: "Who are you looking for in your community’s network?",
   simple: true,
   signature: "",
-  placeholder: "Describe the event you want to plan",
+  placeholder: "A founder dinner in Stockholm, a CTO for a portfolio company…",
   examples: [],
   topics: [
     { key: "founders", label: "Founders", topic: "founders", why: "builds a company", default: true, plain: true, keywords: ["founder","founders","ceo","startup","startups"], match: { title: /founder|\bceo\b|chief executive/i, org: null, req: "title" } },
